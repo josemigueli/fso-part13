@@ -1,0 +1,17 @@
+{
+  "name": "blogs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --env-file .env src/index.js",
+    "dev": "node --env-file .env --watch src/index.js"
+  },
+  "author": "Miguel O.",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "4.21.2",
+    "pg": "8.13.1",
+    "sequelize": "6.37.5"
+  }
+}
