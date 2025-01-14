@@ -1,5 +1,4 @@
 const { Model, DataTypes } = require('sequelize')
-
 const { sequelize } = require('../util/db')
 
 class Blog extends Model {}
@@ -26,11 +25,25 @@ Blog.init(
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+    year: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        isValidYear(value) {
+          const currentYear = new Date().getFullYear()
+          if (value > currentYear) {
+            throw new Error(
+              `The year cannot be greater than the current year (${currentYear})`
+            )
+          }
+        },
+      },
+    },
   },
   {
     sequelize,
     underscored: true,
-    timestamps: false,
+    timestamps: true,
     modelName: 'blog',
   }
 )

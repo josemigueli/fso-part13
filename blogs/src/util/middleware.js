@@ -39,6 +39,15 @@ const errorHandler = (error, _req, res, next) => {
       .json({ error: 'Username must be a valid email address' })
   }
 
+  if (
+    error.message ===
+    'Validation error: The year cannot be greater than the current year (2025)'
+  ) {
+    return res.status(400).json({
+      error: 'The year cannot be greater than the current year (2025)',
+    })
+  }
+
   if (error.message === 'data and salt arguments required') {
     return res.status(400).json({ error: 'Password is required' })
   }
