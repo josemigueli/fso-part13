@@ -1,6 +1,4 @@
 const router = require('express').Router()
-const jwt = require('jsonwebtoken')
-const { SECRET } = require('../util/config')
 const { Blog, User } = require('../models')
 const { blogFinder, userExtractor } = require('../util/middleware')
 const { Op } = require('sequelize')
@@ -28,8 +26,6 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', userExtractor, async (req, res) => {
-  jwt.verify(req.token, SECRET)
-
   const blog = await Blog.create({ ...req.body, userId: req.user.id })
   res.json(blog)
 })
@@ -50,8 +46,6 @@ router.put('/:id', blogFinder, async (req, res) => {
 })
 
 router.delete('/:id', userExtractor, blogFinder, async (req, res) => {
-  jwt.verify(req.token, SECRET)
-
   const userId = req.user.id
   const blog = req.blog
 

@@ -2,6 +2,7 @@ const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const { User, Blog, ReadingList, ReadingListItem } = require('../models')
 const { Op } = require('sequelize')
+const { userExtractor } = require('../util/middleware')
 
 router.get('/', async (_req, res) => {
   const users = await User.findAll({
@@ -63,11 +64,11 @@ router.post('/', async (req, res) => {
   res.json(user)
 })
 
-router.put('/:username', async (req, res) => {
+router.put('/:username', userExtractor, async (req, res) => {
   const user = await User.findOne({ where: { username: req.params.username } })
 
-  if (user) {
-    user.update(req.body)
+  if (user && user.id === req.user.id) {
+    await user.update(req.body)
     res.json(user)
   } else {
     res.status(404).end()

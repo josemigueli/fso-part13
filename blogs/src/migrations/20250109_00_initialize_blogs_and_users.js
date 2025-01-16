@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize')
-const { update } = require('../models/user')
 
 module.exports = {
   up: async ({ context: queryInterface }) => {
