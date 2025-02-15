@@ -67,7 +67,7 @@ blogs/
    ```
 2. Navigate to the project directory:
    ```bash
-   cd blogs
+   cd fso-part13/blogs
    ```
 3. Install dependencies:
    ```bash
